@@ -5,7 +5,8 @@ using AbbyWeb.Model;
 
 namespace AbbyWeb.Pages.Category
 {
-    public class CreateModel : PageModel
+	[BindProperties]
+	public class CreateModel : PageModel
     {
 		private readonly ApplicationDbContext _db;
 
@@ -17,5 +18,20 @@ namespace AbbyWeb.Pages.Category
 		public void OnGet()
         {
         }
-    }
+
+		public async Task<IActionResult> OnPost()
+		{
+			if (Category.Name == Category.DisplayOrder.ToString())
+			{
+				ModelState.AddModelError(string.Empty, "The DisplayOrder cannot exactly match the Name.");
+			}
+			if (ModelState.IsValid)
+			{
+				await _db.Category.AddAsync(Category);
+				await _db.SaveChangesAsync();
+				return RedirectToPage("Index");
+			}
+			return Page();
+		}
+	}
 }
