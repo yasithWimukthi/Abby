@@ -4,32 +4,37 @@
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h2 class="text-primary">Category List</h2>
+            <h2 class="text-primary">Category list</h2>
         </div>
         <div class="col-6">
-            <a asp-page="create" class="btn btn-primary">Create New Category</a>
+            <a asp-page="create" class="btn btn-primary float-right">Create new category</a>
         </div>
     </div>
-    <br />
-    <table class="table table-bordered table-striped" style="width:100%">
+    <br /><br />
+    <table class="table table-bordered table-stripped" style="width:100%;">
         <thead>
             <tr>
-                <th>
-                    Category Name
-                </th>
-                 <th>
-                    Display Order
-                </th>
+                <th>Category name</th>
+                <th>Display order</th>
             </tr>
         </thead>
         <tbody>
-            @foreach(var obj in Model.Categories)
+            @foreach (var obj in Model.Categories)
             {
-                
-            <tr>
-                <td width="50%">@obj.Name</td>
-                <td width="30%">@obj.DisplayOrder</td>
-            </tr>
+                <tr>
+                    <td>@obj.Name</td>
+                    <td>@obj.DisplayOrder</td>
+                    <td>@obj.Title</td>
+                    <td>@obj.Description</td>
+                    <td><img src="@obj.Image" alt="Item's image'" /></td>
+                    <td>@obj.Status</td>
+                    <td>
+                        <a asp-page="Edit" asp-route-id="@obj.Id" class="btn btn-primary mx-2">Edit</a>
+                    </td>
+                    <td>
+                        <a asp-page="Delete" asp-route-id="@obj.Id" class="btn btn-danger mx-2">Delete</a>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
